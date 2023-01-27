@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jiwon</title>
+  </head>
+  <body>
+    <div id="header">
+      <h1>Jiwon 카페</h1>
+      <span>주문자 이름을 입력하세요</span>
+      <input type="text" name="name" />
+      <br /><br />
+      <hr />
+    </div>
+    <div id="group_order">
+      <h2>단체 주문</h2>
+      <input type="checkbox" name="group_product" value="group_coffe" /> 커피
+      <input type="checkbox" name="group_product" value="group_tea" /> 차
+      <input type="checkbox" name="group_product" value="group_latte" /> 라떼
+      <p>주문 날짜 입력</p>
+      <input type="date" name="date" />
+      <br /><br />
+      <hr />
+    </div>
+    <div id="individual_order">
+      <h2>개별 주문</h2>
+      <input
+        type="radio"
+        name="individual_product"
+        value="individual_coffe"
+      />커피
+      <input type="radio" name="individual_product" value="individual_tea" /> 차
+      <input
+        type="radio"
+        name="individual_product"
+        value="individual_latte"
+      />라떼
+      <p>주문 날짜 및 시간 입력</p>
+      <input type="datetime-local" name="datetime" />
+      <br /><br />
+      <hr />
+    </div>
+  </body>
+</html>
