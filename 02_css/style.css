@@ -1,0 +1,12 @@
+@import url("./heading-style.css");
+
+/* 주석 사용하기 */
+p {
+  color: thistle;
+  background-color: chartreuse;
+}
+
+span {
+  color: black;
+  background-color: skyblue;
+}
