@@ -1,0 +1,25 @@
+/* .list {
+  background-color: orange;
+}
+
+#item {
+  background-color: skyblue;
+}
+
+li {
+  background-color: red;
+}
+
+* {
+  background-color: dodgerblue;
+} */
+
+.list li.item {
+  background-color: orange;
+}
+/* 21점 */
+
+body .list li:first-child {
+  background-color: skyblue;
+}
+/* 22점 */
