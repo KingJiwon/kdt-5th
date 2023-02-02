@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+
+        margin: auto;
+      }
+
+      .parent {
+        width: 100px;
+        position: relative;
+        background-color: skyblue;
+        perspective: 500px;
+        margin-bottom: 20px;
+      }
+
+      .child1,
+      .child2 {
+        position: absolute;
+        background-color: orange;
+        transition: 0.5s;
+      }
+
+      .child1:hover {
+        transform: rotate(45deg);
+        border-radius: 50%;
+      }
+
+      .child2:hover {
+        transform: rotateX(45deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="child1"></div>
+    </div>
+
+    <div class="parent">
+      <div class="child2"></div>
+    </div>
+  </body>
+</html>
