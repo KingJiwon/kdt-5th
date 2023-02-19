@@ -3,10 +3,13 @@ const kdt = ["박지원", "김민정", "송민영", "이찬호"];
 kdt.push("지원");
 console.log(kdt);
 
-kdt.pop();
+kdt.pop("지원");
 console.log(kdt);
 
 kdt.unshift("지원");
+console.log(kdt);
+
+kdt.shift("지원");
 console.log(kdt);
 
 for (let i = 0; i < kdt.length; i += 1) {
