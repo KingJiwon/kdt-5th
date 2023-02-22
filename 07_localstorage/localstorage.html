@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.localStorage.setItem("name", "박지원");
+      window.localStorage.setItem("number", 1);
+
+      console.log(window.localStorage.getItem("name"));
+      const number = window.localStorage.getItem("number");
+      console.log(number);
+      console.log(typeof number);
+
+      const jiwon = {
+        name: "박지원",
+        isOld: false,
+        hobby: ["ㅇㅇ", "ㅇㅇ2", "ㅇㅇ3"],
+      };
+
+      //객체를 json으로
+      const jsonJiwon = JSON.stringify(jiwon);
+      window.localStorage.setItem("jiwon", jsonJiwon);
+
+      //json을 다시 객체로
+      const jsonJiwonFromLocal = window.localStorage.getItem("jiwon");
+      const objJiwon = JSON.parse(jsonJiwonFromLocal);
+      console.log(objJiwon);
+      console.log(window.localStorage);
+
+      //삭제
+      window.localStorage.setItem("pororo", "뽀로로입니다!");
+      console.log(window.localStorage.getItem("pororo"));
+      window.localStorage.removeItem("pororo");
+      console.log(window.localStorage.getItem("pororo"));
+
+      window.localStorage.clear();
+      console.log(window.localStorage);
+
+      window.localStorage.setItem("jiwon", "접니다");
+      window.localStorage.setItem("pororo", "뽀로로");
+      console.log(window.localStorage.length);
+      console.log(window.localStorage.key(0));
+      console.log(window.localStorage.key(1));
+      console.log(window.localStorage.key(2));
+
+      window.localStorage.clear();
+      window.localStorage.setItem("지원", "접니다");
+      window.sessionStorage.setItem("뽀로로", "뽀로롭니다");
+    </script>
+  </head>
+  <body></body>
+</html>
