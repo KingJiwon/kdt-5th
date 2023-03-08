@@ -13,4 +13,4 @@ function pay(tot) {
   console.log(`${tot}원을 지불하였습니다`);
 }
 
-const totalmoney = buySync('포켓몬빵', 1000, 5, pay);
+buySync('포켓몬빵', 1000, 5, pay);

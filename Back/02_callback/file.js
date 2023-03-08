@@ -1,0 +1,21 @@
+// @ts-check
+
+const fs = require('fs');
+
+fs.readFile('./02_callback/test.txt', 'utf-8', (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(data);
+  }
+});
+
+const str = '파일 쓰기 테스트';
+
+fs.writeFile('./02_callback/test1.txt', str, 'utf-8', (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('파일 쓰기 완료!');
+  }
+});
