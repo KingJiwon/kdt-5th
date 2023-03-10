@@ -1,17 +1,9 @@
-// @ts-check
+// eslint-disable-next-line import/no-extraneous-dependencies
 const express = require('express');
 
 const router = express.Router();
 
-const app = express();
-const USER = {
-  1: {
-    id: 'jiwon',
-    name: '박지원',
-  },
-};
-
-const USER_ARR = [
+const USER = [
   {
     id: 'jiwon',
     name: '박지원',
@@ -24,78 +16,103 @@ const USER_ARR = [
   },
 ];
 // localhost:4000/users/
-// 127.0.0.1:4000/users/
+// /users에 데이터전달
 router.get('/', (req, res) => {
-  res.render('users', { USER_ARR, userCounts: USER_ARR.length });
+  res.render('users', { USER, userCounts: USER.length });
 });
 
+// 유저 데이터 미들웨어
 router.get('/id/:id', (req, res) => {
-  const userData = USER[req.params.id];
+  const userData = USER.find((user) => user.id === req.params.id);
   if (userData) {
     res.send(userData);
   } else {
-    res.send('ID not found');
+    const err = new Error('해당 id를 가진 회원이 없습니다!');
+    err.statusCode = 404;
+    throw err;
   }
 });
 
+// 회원 추가 미들웨어
 router.post('/add', (req, res) => {
-  if (!req.query.id || !req.query.name) {
-    return res.end('쿼리 입력이 잘못 되었습니다.');
+  console.log(req.body);
+  if (Object.keys(req.query).length >= 1) {
+    if (req.query.id && req.query.name && req.query.email) {
+      const newUser = {
+        id: req.query.id,
+        name: req.query.name,
+        email: req.query.email,
+      };
+      USER.push(newUser);
+      res.send('회원 등록 완료');
+    } else {
+      const err = new Error('쿼리 입력이 잘못되었습니다!');
+      err.statusCode = 400;
+      throw err;
+    }
+  } else if (req.body) {
+    if (req.body.id && req.body.name && req.body.email) {
+      const newUser = {
+        id: req.body.id,
+        name: req.body.name,
+        email: req.body.email,
+      };
+      USER.push(newUser);
+      res.redirect('/users');
+    } else {
+      const err = new Error('폼 태그 입력을 확인하세요!');
+      err.statusCode = 400;
+      throw err;
+    }
+  } else {
+    const err = new Error('데이터가 입력되지 않았습니다.');
+    err.statusCode = 400;
+    throw err;
   }
-
-  const newUser = {
-    id: req.query.id,
-    name: req.query.name,
-  };
-  USER[Object.keys(USER).length + 1] = newUser;
-  res.send('회원 등록 완료');
-  //   if (req.query.id && req.query.name) {
-  //     const newUser = {
-  //       id: req.query.id,
-  //       name: req.query.name,
-  //     };
-  //     USER[Object.keys(USER).length + 1] = newUser;
-  //     res.send('회원 등록 완료');
-  //   } else {
-  //     res.end('Unexpcted query');
-  //   }
 });
 
+// 회원 정보 수정 미들웨어
 router.put('/modify/id/:id', (req, res) => {
-  if (!req.query.id || !req.query.name) {
-    return res.send('쿼리 입력이 잘못되었습니다');
+  if (req.query.email && req.query.name) {
+    const userIndex = USER.findIndex((user) => user.id === req.params.id);
+    if (userIndex !== -1) {
+      USER[userIndex] = {
+        id: req.params.id,
+        name: req.query.name,
+        email: req.query.email,
+      };
+      res.send('회원 정보 수정 완료!');
+    } else {
+      const err = new Error('해당 id를 가진 회원이 없습니다!');
+      err.statusCode = 404;
+      throw err;
+    }
+  } else {
+    const err = new Error('쿼리 입력이 잘못되었습니다!');
+    err.statusCode = 400;
+    throw err;
   }
-  if (!USER[req.params.id]) {
-    return res.send('해당 ID를 가진 회원이 존재하지 않습니다.');
-  }
-  USER[req.params.id].id = req.query.id;
-  USER[req.params.id].name = req.query.name;
-  //   USER[req.params.id] = {
-  //     id: req.query.id,
-  //     name: req.query.name,
-  //   };
-
-  res.send('회원 정보 수정 완료');
 });
 
+// 회원 삭제 미들웨어
 router.delete('/delete/id/:id', (req, res) => {
-  if (!USER[req.params.id]) {
-    return res.send('해당 id 정보가 없습니다.');
+  const userIndex = USER.findIndex((user) => user.id === req.params.id);
+  if (userIndex !== -1) {
+    USER.splice(userIndex, 1);
+    res.send('회원 삭제 완료!');
+  } else {
+    const err = new Error('해당 id를 가진 회원이 없습니다!');
+    err.statusCode = 404;
+    throw err;
   }
-  delete USER[req.params.id];
-  res.send('회원 정보 삭제 완료');
-});
-
-app.get('/', (req, res) => {
-  res.send('Hello, Express world');
 });
 
 router.get('/show', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' });
   res.write('<h1>hello, Dynamic Web</h1>');
-  for (let i = 0; i < USER_ARR.length; i += 1) {
-    res.write(`<h2>USER id is ${USER_ARR[i].id}</h2>`);
-    res.write(`<h2>USER name is ${USER_ARR[i].name}</h2>`);
+  for (let i = 0; i < USER.length; i += 1) {
+    res.write(`<h2>USER id is ${USER[i].id}</h2>`);
+    res.write(`<h2>USER name is ${USER[i].name}</h2>`);
   }
   res.end('');
 });

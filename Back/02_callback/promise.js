@@ -2,7 +2,7 @@
 // @ts-check
 
 // const promise = new Promise((resolve, reject) => {
-//   const jiwon = 'older';
+//   const jiwon = 'old';
 //   if (jiwon === 'old') {
 //     setTimeout(() => {
 //       resolve('jiwon is old');
